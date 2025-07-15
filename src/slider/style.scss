@@ -1,0 +1,73 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.bg-gold{
+	background-color:#FFD700;
+}
+
+.bg-sand{
+	background-color:#f6d7b0;
+}
+
+.bg-gray{
+	background-color:#ccc;
+}
+
+.bg-dark{
+	background-color: #111;
+}
+
+.my-slider{
+	padding:1rem;
+}
+
+.text-gold{
+	color:#FFD700;
+}
+
+.text-sand{
+	color:#f6d7b0;
+}
+
+.text-gray{
+	color:#ccc;
+}
+
+.text-dark{
+	color:#111;
+}
+
+.arrow-color-gold{
+	color:#FFD700;
+}
+
+.arrow-color-gray{
+	color:#ccc;
+}
+
+.arrow-color-sand{
+	color:#f6d7b0;
+}
+
+.arrow-color-dark{
+	color: #111;
+}
+
+.my-slider{
+	.owl-nav{
+		display: flex;
+    	justify-content: center;
+		gap:1rem;
+		button span{
+			font-size:1.5rem;
+		}
+	}
+	.slide{
+		text-align:center;
+	}
+	
+}

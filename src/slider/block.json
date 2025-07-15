@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/slider",
+	"version": "0.1.0",
+	"title": "Slider",
+	"category": "widgets",
+	"icon": "slides",
+	"description": "A slider block where you can select up to 3 posts.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "slider",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"selectedPosts": {
+			"type": "array",
+			"default": []
+		},
+		"arrowShow": {
+		  "type": "boolean",
+		  "default": true
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "sand"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "dark"
+		},
+		"arrowColor": {
+			"type": "string",
+			"default": "dark"
+		}
+	}
+}
