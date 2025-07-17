@@ -36,7 +36,7 @@ function slider_render_callback( $attributes ) {
 	ob_start();
 	?>
 	<?php
-		$bg_color = ! empty( $attributes['backgroundColor'] ) ? esc_attr( $attributes['backgroundColor'] ) : '';
+		$bg_color = ! empty( $attributes['backgroundColor'] ) ? esc_attr($attributes['backgroundColor'] ) : '';
 		$text_color = ! empty($attributes['textColor']) ? esc_attr($attributes['textColor']): '';
 		$arrow_color = ! empty($attributes['arrowColor']) ? esc_attr($attributes['arrowColor']): '';
 	?>
@@ -68,7 +68,7 @@ function slider_render_callback( $attributes ) {
 				items: 1,
 				loop: true,
 				nav: <?php echo ! empty( $attributes['arrowShow'] ) ? 'true' : 'false'; ?>,
-				dots: true
+				dots: false
 			});
 		});
 	</script>
