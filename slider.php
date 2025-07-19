@@ -39,9 +39,10 @@ function slider_render_callback( $attributes ) {
 		$bg_color = ! empty( $attributes['backgroundColor'] ) ? esc_attr($attributes['backgroundColor'] ) : '';
 		$text_color = ! empty($attributes['textColor']) ? esc_attr($attributes['textColor']): '';
 		$arrow_color = ! empty($attributes['arrowColor']) ? esc_attr($attributes['arrowColor']): '';
+		$unique_id = ! empty( $attributes['uniqueId'] ) ? esc_attr( $attributes['uniqueId'] ) : uniqid( 'slider-' );
 	?>
 
-	<div class="owl-carousel my-slider <?= 'bg-'.$bg_color?> <?= 'arrow-color-'.$arrow_color?>">
+	<div id="<?php echo $unique_id; ?>" class="owl-carousel my-slider <?= 'bg-'.$bg_color?> <?= 'arrow-color-'.$arrow_color?>">
 		<?php
 		$query = new WP_Query( [
 			'post__in' => $attributes['selectedPosts'],
@@ -64,7 +65,7 @@ function slider_render_callback( $attributes ) {
 
 	<script>
 		jQuery(document).ready(function($){
-			$('.my-slider').owlCarousel({
+			$('#<?php echo $unique_id; ?>').owlCarousel({
 				items: 1,
 				loop: true,
 				nav: <?php echo ! empty( $attributes['arrowShow'] ) ? 'true' : 'false'; ?>,

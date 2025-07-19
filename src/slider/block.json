@@ -36,6 +36,9 @@
 		"arrowColor": {
 			"type": "string",
 			"default": "dark"
+		},
+		"uniqueId": {
+			"type": "string"
 		}
 	}
 }

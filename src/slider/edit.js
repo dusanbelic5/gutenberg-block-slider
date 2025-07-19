@@ -3,12 +3,22 @@ import { ComboboxControl, Notice, ToggleControl, SelectControl, PanelBody, TabPa
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { selectedPosts, arrowShow, backgroundColor, textColor, arrowColor } = attributes;
+	const { uniqueId, selectedPosts, arrowShow, backgroundColor, textColor, arrowColor } = attributes;
 	const [search, setSearch] = useState('');
 
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps({ id: uniqueId });
+
+	// generate uniqueId once
+	useEffect(() => {
+		if (!uniqueId) {
+			setAttributes({ uniqueId: uuidv4() });
+		}
+	}, [uniqueId]);
+
 
 	// Query posts
 	const posts = useSelect((select) => {

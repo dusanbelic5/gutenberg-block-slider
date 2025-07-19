@@ -21,10 +21,6 @@
 	background-color: #111;
 }
 
-.my-slider{
-	padding:1rem;
-}
-
 .text-gold{
 	color:#FFD700;
 }
@@ -68,6 +64,12 @@
 	}
 	.slide{
 		text-align:center;
+		img{
+			object-fit:cover;
+			object-position: center;
+			height:400px;
+			width:100%;
+		}
 	}
 	a{
 		text-decoration: none;
