@@ -1,5 +1,5 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { ComboboxControl, Notice, ToggleControl, SelectControl, PanelBody, TabPanel } from '@wordpress/components';
+import { ComboboxControl, ToggleControl, SelectControl, PanelBody, TabPanel } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
@@ -34,6 +34,7 @@ export default function Edit({ attributes, setAttributes }) {
 		return select('core').getEntityRecords('postType', 'post', {
 			include: selectedPosts,
 			per_page: selectedPosts.length,
+			_embed: true,
 		});
 	}, [selectedPosts]);
 
@@ -61,14 +62,44 @@ export default function Edit({ attributes, setAttributes }) {
 	};
 
 	if (!posts) {
-		return <p {...blockProps}>{__('Loading posts…', 'textdomain')}</p>;
+		return <p {...blockProps}>{__('Loading posts…', 'slider')}</p>;
 	}
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__('Slider Settings', 'textdomain')}>
-                    Test here
+				<PanelBody title={__('Slider Settings', 'slider')} initialOpen={true}>
+					<h3>{__('Select up to 3 posts for slider:', 'slider')}</h3>
+
+					<ComboboxControl
+						label={__('Search posts', 'slider')}
+						value=""
+						options={posts.map((post) => ({
+							label: post.title.rendered,
+							value: post.id,
+						}))}
+						onInputChange={(val) => setSearch(val)}
+						onChange={(val) => handleAddPost(val)}
+						disabled={selectedPosts.length >= 3}
+					/>
+
+					<div>
+						<h4>{__('Selected posts:', 'slider')}</h4>
+						<ul>
+							{selectedTitles &&
+								selectedTitles.map((post) => (
+									<li key={post.id}>
+										{post.title.rendered}
+										<button
+											onClick={() => handleRemovePost(post.id)}
+											style={{ marginLeft: '1rem' }}
+										>
+											{__('Remove', 'slider')}
+										</button>
+									</li>
+								))}
+						</ul>
+					</div>
 				</PanelBody>
 
                 <TabPanel
@@ -85,7 +116,7 @@ export default function Edit({ attributes, setAttributes }) {
                                 return (
                                     <PanelBody title="General Settings">
                                         <ToggleControl
-                                            label={__('Show arrows', 'textdomain')}
+                                            label={__('Show arrows', 'slider')}
                                             checked={arrowShow}
                                             onChange={() => setAttributes({ arrowShow: !arrowShow })}
                                         />
@@ -95,7 +126,7 @@ export default function Edit({ attributes, setAttributes }) {
                                 return (
                                     <PanelBody title="Style Settings">
                                     <SelectControl
-                                                            label={__('Background color', 'textdomain')}
+                                                            label={__('Background color', 'slider')}
                                                             value={backgroundColor || 'sand'}
                                                             onChange={handleBackgroundColorChange}
                                                             options={[
@@ -107,7 +138,7 @@ export default function Edit({ attributes, setAttributes }) {
                                     />
 
                                     <SelectControl
-                                                            label={__('Text color', 'textdomain')}
+                                                            label={__('Text color', 'slider')}
                                                             value={textColor || 'dark'}
                                                             onChange={handleTextColorChange}
                                                             options={[
@@ -120,7 +151,7 @@ export default function Edit({ attributes, setAttributes }) {
 
 
                                     <SelectControl
-                                                            label={__('Arrow color', 'textdomain')}
+                                                            label={__('Arrow color', 'slider')}
                                                             value={arrowColor || 'dark'}
                                                             onChange={handleArrowColorChange}
                                                             options={[
@@ -139,44 +170,21 @@ export default function Edit({ attributes, setAttributes }) {
                 </TabPanel>
 			</InspectorControls>
 
-			<div {...blockProps}>
-				<h3>{__('Select up to 3 posts for slider:', 'textdomain')}</h3>
-
-				{selectedPosts.length >= 3 && (
-					<Notice status="warning" isDismissible={false}>
-						{__('You can only select up to 3 posts.', 'textdomain')}
-					</Notice>
-				)}
-
-				<ComboboxControl
-					label={__('Search posts', 'textdomain')}
-					value=""
-					options={posts.map((post) => ({
-						label: post.title.rendered,
-						value: post.id,
-					}))}
-					onInputChange={(val) => setSearch(val)}
-					onChange={(val) => handleAddPost(val)}
-					disabled={selectedPosts.length >= 3}
-				/>
-
-				<div>
-					<h4>{__('Selected posts:', 'textdomain')}</h4>
-					<ul>
-						{selectedTitles &&
-							selectedTitles.map((post) => (
-								<li key={post.id}>
-									{post.title.rendered}
-									<button
-										onClick={() => handleRemovePost(post.id)}
-										style={{ marginLeft: '1rem' }}
-									>
-										{__('Remove', 'textdomain')}
-									</button>
-								</li>
-							))}
-					</ul>
+			<div {...blockProps} className={`${blockProps.className} slider-preview`}>
+			{selectedTitles?.length > 0 ? (
+				<div key={selectedTitles[0].id} className="slide-preview">
+					{selectedTitles[0]._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+						<img
+							src={selectedTitles[0]._embedded['wp:featuredmedia'][0].source_url}
+							alt={selectedTitles[0].title.rendered}
+							style={{ width: '100%', height: 'auto' }}
+						/>
+					)}
+					<h4>{selectedTitles[0].title.rendered}</h4>
 				</div>
+			) : (
+				<p>No posts selected yet</p>
+			)}
 			</div>
 		</>
 	);
