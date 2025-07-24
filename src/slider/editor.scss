@@ -1,5 +1,10 @@
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
- */
+.editor-styles-wrapper .my-slider .slide{
+    display:none;
+    &:first-child{
+        display:block;
+    }
+    a {
+    pointer-events: none;
+    cursor: default;
+    }
+}

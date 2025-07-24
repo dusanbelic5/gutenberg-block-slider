@@ -5,6 +5,9 @@ import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { v4 as uuidv4 } from 'uuid';
+import ServerSideRender from '@wordpress/server-side-render';
+import './editor.scss';
+
 
 export default function Edit({ attributes, setAttributes }) {
 	const { uniqueId, selectedPosts, arrowShow, backgroundColor, textColor, arrowColor } = attributes;
@@ -170,21 +173,12 @@ export default function Edit({ attributes, setAttributes }) {
                 </TabPanel>
 			</InspectorControls>
 
-			<div {...blockProps} className={`${blockProps.className} slider-preview`}>
-			{selectedTitles?.length > 0 ? (
-				<div key={selectedTitles[0].id} className="slide-preview">
-					{selectedTitles[0]._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
-						<img
-							src={selectedTitles[0]._embedded['wp:featuredmedia'][0].source_url}
-							alt={selectedTitles[0].title.rendered}
-							style={{ width: '100%', height: 'auto' }}
-						/>
-					)}
-					<h4>{selectedTitles[0].title.rendered}</h4>
-				</div>
-			) : (
-				<p>No posts selected yet</p>
-			)}
+
+			<div {...blockProps}>
+				<ServerSideRender
+					block="create-block/slider"
+					attributes={attributes}
+				/>
 			</div>
 		</>
 	);
