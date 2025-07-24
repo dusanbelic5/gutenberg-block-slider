@@ -173,7 +173,6 @@ export default function Edit({ attributes, setAttributes }) {
                 </TabPanel>
 			</InspectorControls>
 
-
 			<div {...blockProps}>
 				<ServerSideRender
 					block="create-block/slider"
