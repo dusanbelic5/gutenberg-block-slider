@@ -23,7 +23,12 @@ $arrow_color = ! empty( $attributes['arrowColor'] ) ? esc_attr( $attributes['arr
 $unique_id   = ! empty( $attributes['uniqueId'] ) ? esc_attr( $attributes['uniqueId'] ) : uniqid( 'slider-' );
 
 ?>
-<div id="<?php echo esc_attr( $unique_id ); ?>" class="owl-carousel my-slider <?php echo 'bg-' . $bg_color . ' arrow-color-' . $arrow_color; ?>">
+<div 
+	id="<?php echo esc_attr( $unique_id ); ?>"
+	class="owl-carousel my-slider <?php echo 'bg-' . $bg_color . ' arrow-color-' . $arrow_color; ?>"
+	data-slider-id="<?php echo esc_attr( $unique_id ); ?>"
+	data-nav="<?php echo ! empty( $attributes['arrowShow'] ) ? 'true' : 'false'; ?>"
+>
 	<?php
 	$query = new WP_Query( [
 		'post__in' => $selected_posts,

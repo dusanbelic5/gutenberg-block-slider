@@ -72,7 +72,7 @@ export default function Edit({ attributes, setAttributes }) {
 		<>
 			<InspectorControls>
 				<PanelBody title={__('Slider Settings', 'slider')} initialOpen={true}>
-					<h3>{__('Select up to 3 posts for slider:', 'slider')}</h3>
+					<h3>{__('Select up to 3 posts for slider, first selected post will appear first:', 'slider')}</h3>
 
 					<ComboboxControl
 						label={__('Search posts', 'slider')}

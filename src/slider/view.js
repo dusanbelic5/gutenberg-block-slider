@@ -20,6 +20,20 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-/* eslint-disable no-console */
-console.log( 'Hello World! (from create-block-slider block)' );
-/* eslint-enable no-console */
+document.addEventListener('DOMContentLoaded', () => {
+	const sliders = document.querySelectorAll('.my-slider.owl-carousel');
+
+	sliders.forEach((slider) => {
+		const sliderId = slider.getAttribute('data-slider-id');
+		const nav = slider.getAttribute('data-nav') === 'true';
+
+		if (!slider.classList.contains('owl-loaded')) {
+			jQuery(`#${sliderId}`).owlCarousel({
+				items: 1,
+				loop: true,
+				nav: nav,
+				dots: false,
+			});
+		}
+	});
+});
